@@ -16,7 +16,6 @@ void main() {
     setUp(() async {
       mockDatabaseHelper = MockDatabaseHelper();
       userRepository = MockUserRepositoryImpl();
-
     });
 
     test('getUserById should return a user if found', () async {
@@ -29,7 +28,8 @@ void main() {
 
       // Sisipkan data ke dalam database
 
-      when(mockDatabaseHelper.insert(table: 'users', data: data.toJson())).thenAnswer((_) async => 1);
+      when(mockDatabaseHelper.insert(table: 'users', data: data.toJson()))
+          .thenAnswer((_) async => 1);
 
       // Data pengguna sample untuk diambil dan dibandingkan
       final user = User(
@@ -53,7 +53,8 @@ void main() {
 
     test('getUserById should return null if user not found', () async {
       // Siapkan database tiruan untuk mengembalikan null
-      when(userRepository.getUserById(2)).thenAnswer((realInvocation) async => null);
+      when(userRepository.getUserById(2))
+          .thenAnswer((realInvocation) async => null);
 
       // Dapatkan pengguna dari repositori
       final retrievedUser = await userRepository.getUserById(2);
