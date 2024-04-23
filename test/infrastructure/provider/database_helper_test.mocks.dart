@@ -52,10 +52,35 @@ class MockDatabaseHelper extends _i1.Mock implements _i3.DatabaseHelper {
       ) as _i4.Future<_i2.Database>);
 
   @override
-  _i4.Future<_i5.User?> get(int? id) => (super.noSuchMethod(
+  _i4.Future<dynamic> insert({
+    required String? table,
+    required Map<String, Object?>? data,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #insert,
+          [],
+          {
+            #table: table,
+            #data: data,
+          },
+        ),
+        returnValue: _i4.Future<dynamic>.value(),
+      ) as _i4.Future<dynamic>);
+
+  @override
+  _i4.Future<_i5.User?> get({
+    required String? table,
+    required Object? id,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #get,
-          [id],
+          [],
+          {
+            #table: table,
+            #id: id,
+          },
         ),
         returnValue: _i4.Future<_i5.User?>.value(),
       ) as _i4.Future<_i5.User?>);

@@ -43,12 +43,20 @@ class DatabaseHelper {
     return db;
   }
 
-  Future<User?> get(int id) async {
+  Future insert({required String table, required Map<String, Object?> data}) async {
+    // Dapatkan database instance
+    final db = await database;
+
+    // Sisipkan data pengguna ke dalam tabel users
+    await db.insert('users', data);
+  }
+
+  Future<User?> get({required String table, required Object? id}) async {
     // Dapatkan database instance
     final db = await database;
 
     // Buat query SQL untuk mengambil data pengguna berdasarkan ID
-    final query = 'SELECT * FROM users WHERE id = ?';
+    final query = 'SELECT * FROM $table WHERE id = ?';
 
     // Jalankan query dengan argumen ID pengguna
     final result = await db.rawQuery(query, [id]);

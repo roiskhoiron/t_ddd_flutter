@@ -33,7 +33,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   Future<User?> getUserById(int id) async {
-    return DatabaseHelper.instance.get(id);
+    return DatabaseHelper.instance.get(table: 'users', id: id);
   }
 
   @override
