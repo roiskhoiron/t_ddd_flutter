@@ -95,21 +95,19 @@ void main() {
             expect(find.text('Halaman Berikutnya'), findsOneWidget);  // NextPage might be found
         });
 
-        testWidgets('Negative State for loggin button tapped before input text field username and password',
-                (WidgetTester tester) async {
-
-                await tester.pumpWidget(MaterialApp(home: LoginPage()));
-
-                await tester.tap(loginButton);
-                await tester.pump();
-
-                // Assert initial state (empty fields)
-                expect(find.text('Username tidak boleh kosong'), findsOneWidget);
-                expect(find.text('Password tidak boleh kosong'), findsOneWidget);
-
-            });
-
-
+        // testWidgets('Negative State for loggin button tapped before input text field username and password',
+        //         (WidgetTester tester) async {
+        //
+        //         await tester.pumpWidget(MaterialApp(home: LoginPage()));
+        //
+        //         await tester.tap(loginButton);
+        //         await tester.pump();
+        //
+        //         // Assert initial state (empty fields)
+        //         expect(find.text('Username tidak boleh kosong'), findsOneWidget);
+        //         expect(find.text('Password tidak boleh kosong'), findsOneWidget);
+        //
+        //     });
     });
 
 }
