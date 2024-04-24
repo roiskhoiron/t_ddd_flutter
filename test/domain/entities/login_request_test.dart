@@ -4,6 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:t_ddd_flutter/domain/entities/login_request.dart';
 
+@GenerateMocks([LoginRequest])
 void main() {
   test('LoginRequest should have the correct attributes', () {
     final loginRequest = LoginRequest(

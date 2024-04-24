@@ -1,7 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:t_ddd_flutter/domain/entities/login_response.dart';
 import 'package:t_ddd_flutter/domain/entities/user.dart';
 
+@GenerateMocks([LoginResponse])
 void main() {
   test('LoginResponse should have the correct attributes', () {
     final loginResponse = LoginResponse(
