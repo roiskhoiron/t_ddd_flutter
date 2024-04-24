@@ -50,9 +50,9 @@ void main() {
       // act
       when(userRepository.login('test', 'password'))
           .thenAnswer((_) async => user);
+      final result = await userRepository.login('test', 'password');
 
       // eksekusi metode login
-      final result = await userRepository.login('test', 'password');
 
       // assert
       expect(result, user);

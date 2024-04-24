@@ -12,7 +12,13 @@ void main() {
       password: 'password',
     );
 
+    // when(loginRequest.username).thenReturn('test@example.com');
+    // when(loginRequest.password).thenReturn('password');
+
     expect(loginRequest.username, 'test@example.com');
     expect(loginRequest.password, 'password');
+
+    // verify(loginRequest.username);
+    // verify(loginRequest.password);
   });
 }

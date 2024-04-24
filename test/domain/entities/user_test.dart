@@ -47,7 +47,6 @@ void main() {
           email: 'test@example.com');
 
       // act
-      // ketika toJson dipanggil, maka kembalikan jsonData
       when(user.toJson()).thenReturn(person.toJson());
 
       // assert
@@ -66,7 +65,6 @@ void main() {
         'password': 'password',
         'email': 'test@example.com',
       };
-
 
       // act
       final people = User.fromJson(jsonData);

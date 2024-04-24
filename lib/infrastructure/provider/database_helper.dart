@@ -23,7 +23,7 @@ class DatabaseHelper {
     // Contoh menggunakan sqflite package
     // final dbPath = await getDatabasesPath();
     // final path = '$dbPath/your_database.db';
-    var db = await databaseFactoryFfi.openDatabase(inMemoryDatabasePath, options: OpenDatabaseOptions(
+    _database = await databaseFactoryFfi.openDatabase(inMemoryDatabasePath, options: OpenDatabaseOptions(
       version: 1,
       onCreate: (db, version) async {
         // Query untuk membuat tabel database
@@ -46,7 +46,7 @@ class DatabaseHelper {
     ));
 
     // await _initTables();
-    return db;
+    return _database!;
   }
 
   Future insert({required String table, required Map<String, Object?> data}) async {
