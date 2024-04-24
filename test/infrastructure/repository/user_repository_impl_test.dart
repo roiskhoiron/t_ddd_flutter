@@ -21,7 +21,7 @@ void main() {
     test('getUserById should return a user if found', () async {
       // Data pengguna sample untuk dimasukkan ke dalam database
       final data = User(
-          id: 1,
+          id: 2,
           username: 'John Doe',
           email: 'johndoe@example.com',
           password: 'password');
@@ -33,13 +33,13 @@ void main() {
 
       // Data pengguna sample untuk diambil dan dibandingkan
       final user = User(
-          id: 1,
+          id: 2,
           username: 'John Doe',
           email: 'johndoe@example.com',
           password: 'password');
 
       // Siapkan database tiruan untuk mengembalikan data pengguna
-      when(userRepository.getUserById(1)).thenAnswer((_) async => user);
+      when(userRepository.getUserById(2)).thenAnswer((_) async => user);
 
       // Dapatkan pengguna dari repositori
       final retrievedUser = await userRepository.getUserById(user.id);
@@ -53,17 +53,17 @@ void main() {
 
     test('getUserById should return null if user not found', () async {
       // Siapkan database tiruan untuk mengembalikan null
-      when(userRepository.getUserById(2))
+      when(userRepository.getUserById(3))
           .thenAnswer((realInvocation) async => null);
 
       // Dapatkan pengguna dari repositori
-      final retrievedUser = await userRepository.getUserById(2);
+      final retrievedUser = await userRepository.getUserById(3);
 
       // Verifikasi bahwa null dikembalikan jika pengguna tidak ditemukan
       expect(retrievedUser, null);
 
       // Memverifikasi bahwa metode get dipanggil dengan argumen 2
-      verify(await userRepository.getUserById(2));
+      verify(await userRepository.getUserById(3));
     });
   });
 }
