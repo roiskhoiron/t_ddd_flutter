@@ -48,7 +48,7 @@ void main() {
       when(userService.login(loginRequest)).thenThrow(UsernameEmptyException());
 
       expect(() => userService.login(loginRequest),
-          throwsA(TypeMatcher<UsernameEmptyException>()));
+          throwsA(const TypeMatcher<UsernameEmptyException>()));
     });
 
     test('Login with empty password should throw PasswordEmptyException', () {
@@ -56,7 +56,7 @@ void main() {
       when(userService.login(loginRequest)).thenThrow(PasswordEmptyException());
 
       expect(() => userService.login(loginRequest),
-          throwsA(TypeMatcher<PasswordEmptyException>()));
+          throwsA(const TypeMatcher<PasswordEmptyException>()));
     });
 
     test('Login with invalid credentials should throw InvalidCredentialsException', () {
@@ -66,7 +66,7 @@ void main() {
       when(userService.login(loginRequest)).thenThrow(InvalidCredentialsException());
 
       expect(() => userService.login(loginRequest),
-          throwsA(TypeMatcher<InvalidCredentialsException>()));
+          throwsA(const TypeMatcher<InvalidCredentialsException>()));
     });
   });
 
