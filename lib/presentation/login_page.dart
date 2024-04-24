@@ -60,6 +60,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               TextFormField(
+                key: Key('username'),
                 controller: _usernameController,
                 decoration: InputDecoration(labelText: 'Username'),
                 validator: (value) {
@@ -72,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 16.0),
               TextFormField(
+                key: Key('password'),
                 controller: _passwordController,
                 decoration: InputDecoration(labelText: 'Password'),
                 validator: (value) {

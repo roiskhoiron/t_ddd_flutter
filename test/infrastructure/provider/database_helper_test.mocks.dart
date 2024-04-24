@@ -6,7 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:sqflite/sqflite.dart' as _i2;
+import 'package:sqflite_common_ffi/sqflite_ffi.dart' as _i2;
 import 'package:t_ddd_flutter/domain/entities/user.dart' as _i5;
 import 'package:t_ddd_flutter/infrastructure/provider/database_helper.dart'
     as _i3;
