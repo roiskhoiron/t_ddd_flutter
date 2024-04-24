@@ -40,19 +40,21 @@ void main() {
     test('User transform to json', () {
       // arrange
       // menyiapkan data json untuk diharapkan sama dengan object user
-      final jsonData = {
-        'id': 1,
-        'username': 'test',
-        'password': 'password',
-        'email': 'test@example.com',
-      };
+      final person = User(
+          id: 1,
+          username: 'test',
+          password: 'password',
+          email: 'test@example.com');
 
       // act
       // ketika toJson dipanggil, maka kembalikan jsonData
-      when(user.toJson()).thenReturn(jsonData);
+      when(user.toJson()).thenReturn(person.toJson());
 
       // assert
-      expect(user.toJson(), jsonData);
+      expect(user.toJson(), person.toJson());
+
+      // verify
+      verify(user.toJson());
     });
 
     test('User transform from json', () {
@@ -65,22 +67,15 @@ void main() {
         'email': 'test@example.com',
       };
 
-      // menyiapkan object user yang diharapkan
-      final expectedUser = User(
-        id: 1,
-        username: 'test',
-        password: 'password',
-        email: 'test@example.com',
-      );
 
       // act
-      final user = User.fromJson(jsonData);
+      final people = User.fromJson(jsonData);
 
       // assert
-      expect(user.id, expectedUser.id);
-      expect(user.username, expectedUser.username);
-      expect(user.password, expectedUser.password);
-      expect(user.email, expectedUser.email);
+      expect(people.id, jsonData['id']);
+      expect(people.username, jsonData['username']);
+      expect(people.password, jsonData['password']);
+      expect(people.email, jsonData['email']);
     });
   });
 }
