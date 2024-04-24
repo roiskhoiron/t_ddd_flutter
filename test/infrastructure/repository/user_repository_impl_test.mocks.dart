@@ -58,11 +58,11 @@ class MockUserRepositoryImpl extends _i1.Mock
       ) as _i3.Future<_i4.User?>);
 
   @override
-  _i3.Future<dynamic> register(_i4.User? data) => (super.noSuchMethod(
+  _i3.Future<bool> register(_i4.User? data) => (super.noSuchMethod(
         Invocation.method(
           #register,
           [data],
         ),
-        returnValue: _i3.Future<dynamic>.value(),
-      ) as _i3.Future<dynamic>);
+        returnValue: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
 }

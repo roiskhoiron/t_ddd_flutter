@@ -37,10 +37,10 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future register(User data) {
+  Future<bool> register(User data) {
     // Sisipkan data pengguna ke dalam database
     return DatabaseHelper.instance.database.then((db) {
-      return db.insert('users', data.toJson());
+      return db.insert('users', data.toJson()).then((value) => value == 1);
     });
   }
 }
