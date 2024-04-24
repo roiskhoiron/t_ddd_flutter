@@ -25,7 +25,7 @@ void main() {
 
       // Act & Assert
       expect(() => userService.login(request),
-          throwsA(TypeMatcher<UsernameEmptyException>()));
+          throwsA(const TypeMatcher<UsernameEmptyException>()));
     });
 
     test('login should throw PasswordEmptyException if password is empty', () {
@@ -34,7 +34,7 @@ void main() {
 
       // Act & Assert
       expect(() => userService.login(request),
-          throwsA(TypeMatcher<PasswordEmptyException>()));
+          throwsA(const TypeMatcher<PasswordEmptyException>()));
     });
 
     test('login should throw InvalidCredentialsException if user is not found',
@@ -46,7 +46,7 @@ void main() {
 
       // Act & Assert
       expect(() => userService.login(request),
-          throwsA(TypeMatcher<InvalidCredentialsException>()));
+          throwsA(const TypeMatcher<InvalidCredentialsException>()));
     });
 
     test('login should return LoginResponse if user is found', () async {
