@@ -17,7 +17,6 @@ class UserRepositoryImpl implements UserRepository {
     final result = await db.rawQuery(query, args);
 
     if (result.isEmpty) {
-      return null;
       throw InvalidCredentialsException();
     }
 

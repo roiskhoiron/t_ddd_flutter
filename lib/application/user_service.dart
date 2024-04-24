@@ -22,7 +22,8 @@ class UserService {
     }
 
     // Panggil repository untuk login
-    final user = await _userRepository.login(request.username, request.password);
+    final user =
+        await _userRepository.login(request.username, request.password);
 
     if (user == null) {
       throw InvalidCredentialsException();
@@ -39,15 +40,13 @@ class UserService {
       'userId': user.id,
       'username': user.username,
       'email': user.email,
-      'exp': DateTime.now().add(const Duration(days: 30)).millisecondsSinceEpoch // Token berlaku selama 30 hari
+      'exp': DateTime.now()
+          .add(const Duration(days: 30))
+          .millisecondsSinceEpoch // Token berlaku selama 30 hari
     };
 
     final token = base64UrlEncode(json.encode(payload).codeUnits);
 
     return token;
   }
-
-
-
 }
-

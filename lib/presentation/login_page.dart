@@ -23,7 +23,12 @@ class _LoginPageState extends State<LoginPage> {
 
       // Gunakan UserService untuk login
       final userService = UserService(UserRepositoryImpl());
-      final response = await userService.login(LoginRequest(username: username, password: password));
+      final response = await userService.login(LoginRequest(username: username, password: password)).catchError((error) {
+        // Tampilkan pesan error
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(error.toString()),
+        ));
+      });
 
       // Proses hasil login
       if (response.token.isNotEmpty) {

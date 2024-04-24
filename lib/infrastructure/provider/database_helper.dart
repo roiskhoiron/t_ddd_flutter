@@ -36,6 +36,13 @@ class DatabaseHelper {
         password TEXT NOT NULL
       )
     ''');
+
+        // query untuk menambahkan data ke dalam tabel
+        await db.insert('users', {
+          'id': 1,
+          'username': 'test',
+          'email': 'test@example.com',
+          'password': 'password'});
       },
     ));
 
