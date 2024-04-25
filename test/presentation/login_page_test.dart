@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:t_ddd_flutter/application/user_service.dart';
@@ -12,22 +13,25 @@ import '../application/user_service_test.mocks.dart';
 
 @GenerateMocks([UserService])
 void main() {
-    group('Login Page ', () {
-        late Finder usernameField;
-        late Finder passwordField;
-        late Finder loginButton;
+    IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+    late Finder usernameField;
+    late Finder passwordField;
+    late Finder loginButton;
 
-        setUp(() {
-            usernameField = find.byWidgetPredicate(
+    setUp(() {
+        usernameField = find.byWidgetPredicate(
                 (Widget widget) => widget is TextFormField && widget.key == Key('username'),
-            );
-            passwordField = find.byWidgetPredicate(
+        );
+        passwordField = find.byWidgetPredicate(
                 (Widget widget) => widget is TextFormField && widget.key == Key('password'),
-            );
-            loginButton = find.byWidgetPredicate(
+        );
+        loginButton = find.byWidgetPredicate(
                 (Widget widget) => widget is ElevatedButton,
-            );
-        });
+        );
+    });
+    
+    group('Widget testing ', () {
+
 
         testWidgets('LoginPage renders correctly and validates user input', (tester) async {
             await tester.pumpWidget(MaterialApp(home: LoginPage()));
@@ -78,6 +82,11 @@ void main() {
             expect(find.text('Login gagal! Silakan coba lagi.'), findsNothing);
         });
 
+
+
+    });
+
+    group('Integration Testing', () {
         testWidgets('Simulate navigation by tapping login button with correct data ', (tester) async {
             await tester.pumpWidget(MaterialApp(home: LoginPage()));
 
@@ -87,27 +96,13 @@ void main() {
 
             // // Simulate login button tap
             await tester.tap(loginButton);
-            await tester.pump();  // Wait for navigation to complete
+            await tester.pumpAndSettle();  // Wait for navigation to complete
 
             // Verify successful navigation to NextPage
 
             expect(find.text('Login'), findsNothing);  // Login page not found
             expect(find.text('Halaman Berikutnya'), findsOneWidget);  // NextPage might be found
         });
-
-        // testWidgets('Negative State for loggin button tapped before input text field username and password',
-        //         (WidgetTester tester) async {
-        //
-        //         await tester.pumpWidget(MaterialApp(home: LoginPage()));
-        //
-        //         await tester.tap(loginButton);
-        //         await tester.pump();
-        //
-        //         // Assert initial state (empty fields)
-        //         expect(find.text('Username tidak boleh kosong'), findsOneWidget);
-        //         expect(find.text('Password tidak boleh kosong'), findsOneWidget);
-        //
-        //     });
     });
 
 }
