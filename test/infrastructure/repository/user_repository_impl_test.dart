@@ -9,7 +9,7 @@ import 'user_repository_impl_test.mocks.dart';
 
 @GenerateMocks([UserRepositoryImpl])
 void main() {
-  group('UserRepositoryImpl', () {
+  group('Unit Test', () {
     late MockUserRepositoryImpl userRepository;
     late MockDatabaseHelper mockDatabaseHelper;
 

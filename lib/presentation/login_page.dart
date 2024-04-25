@@ -24,24 +24,28 @@ class _LoginPageState extends State<LoginPage> {
       // Gunakan UserService untuk login
       final userService = UserService(UserRepositoryImpl());
       final response = await userService.login(LoginRequest(username: username, password: password)).catchError((error) {
-        // Tampilkan pesan error
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(error.toString()),
-        ));
+        if(mounted) {
+          // Tampilkan pesan error
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(error.toString()),
+          ));
+        }
       });
 
-      // Proses hasil login
-      if (response.token.isNotEmpty) {
-        // Navigasi ke NextPage
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NextPage()),
-        );
-      } else {
-        // Tampilkan pesan error
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Login gagal! Silakan coba lagi.'),
-        ));
+      if(mounted) {
+        // Proses hasil login
+        if (response.token.isNotEmpty) {
+          // Navigasi ke NextPage
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NextPage()),
+          );
+        } else {
+          // Tampilkan pesan error
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Login gagal! Silakan coba lagi.'),
+          ));
+        }
       }
 
     }

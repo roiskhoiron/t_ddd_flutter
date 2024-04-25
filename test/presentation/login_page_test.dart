@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:t_ddd_flutter/application/user_service.dart';
-import 'package:t_ddd_flutter/domain/entities/login_response.dart';
 import 'package:t_ddd_flutter/presentation/login_page.dart';
-import 'package:t_ddd_flutter/presentation/next_page.dart';
 
-import '../application/user_service_test.mocks.dart';
   // Add this line for mocking
 
 @GenerateMocks([UserService])
@@ -29,7 +25,7 @@ void main() {
                 (Widget widget) => widget is ElevatedButton,
         );
     });
-    
+
     group('Widget testing ', () {
 
 
@@ -87,7 +83,7 @@ void main() {
     });
 
     group('Integration Testing', () {
-        testWidgets('Simulate navigation by tapping login button with correct data ', (tester) async {
+        testWidgets('Login successfully and go straight to the next page', (tester) async {
             await tester.pumpWidget(MaterialApp(home: LoginPage()));
 
             // Simulate valid username and password input
@@ -103,6 +99,34 @@ void main() {
             expect(find.text('Login'), findsNothing);  // Login page not found
             expect(find.text('Halaman Berikutnya'), findsOneWidget);  // NextPage might be found
         });
+
+        // testWidgets('Login failed and not go straight to the next page', (tester) async {
+        //     await tester.pumpWidget(MaterialApp(home: LoginPage()));
+        //
+        //     // Simulate valid username and password input
+        //     await tester.enterText(usernameField, 'test');
+        //     await tester.enterText(passwordField, 'passwordnya');
+        //
+        //     // // Simulate login button tap
+        //     await tester.tap(loginButton);
+        //     await tester.pump(Duration(seconds: 2));  // Wait for navigation to complete
+        //
+        //
+        //     // Expect that pumpAndSettle will throw an error
+        //     // Verify that the Snackbar is displayed
+        //     expect(find.byType(SnackBar), findsOneWidget);
+        //
+        //     // Verify that the Snackbar content matches the expected text
+        //     final snackbarContentFinder = find.text('Invalid username or password');
+        //     expect(snackbarContentFinder, findsOneWidget);
+        //     // expectLater(tester.pumpAndSettle(), throwsA(const TypeMatcher<InvalidCredentialsException>()));
+        //
+        //     // Verify failed navigation to NextPage
+        //     // expectLater(find.text('Invalid username or password'), findsOneWidget); // Login failed
+        //     // expect(find.text('Login gagal! Silakan coba lagi.'), findsOneWidget); // Login failed
+        //     // expectLater(find.text('Login'), findsOneWidget);  // Login page be and still found
+        //     // expectLater(find.text('Halaman Berikutnya'), findsNothing);  // NextPage might not found
+        // });
     });
 
 }

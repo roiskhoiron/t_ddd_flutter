@@ -9,7 +9,7 @@ import 'user_test.mocks.dart';
 
 @GenerateMocks([User])
 void main() {
-  group('User', () {
+  group('Unit Test', () {
     late MockUser user;
 
     setUp(() {

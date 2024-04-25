@@ -6,7 +6,7 @@ import '../../../lib/infrastructure/provider/database_helper.dart';
 
 @GenerateMocks([DatabaseHelper])
 void main() {
-  group('DatabaseHelper', () {
+  group('Unit Test', () {
     late DatabaseHelper databaseHelper;
     late Database db;
 
