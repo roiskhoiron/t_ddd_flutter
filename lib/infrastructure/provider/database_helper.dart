@@ -19,6 +19,7 @@ class DatabaseHelper {
 
   Future<Database> _openDatabase() async {
 
+    // if(_database != null) return _database!;
     // Implementasi untuk membuka database SQLite
     // Contoh menggunakan sqflite package
     // final dbPath = await getDatabasesPath();

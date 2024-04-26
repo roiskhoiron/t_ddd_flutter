@@ -23,31 +23,30 @@ class _LoginPageState extends State<LoginPage> {
 
       // Gunakan UserService untuk login
       final userService = UserService(UserRepositoryImpl());
-      final response = await userService.login(LoginRequest(username: username, password: password)).catchError((error) {
-        if(mounted) {
-          // Tampilkan pesan error
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(error.toString()),
-          ));
-        }
-      });
+      if (mounted) {
+        try {
+          final response = await userService
+              .login(LoginRequest(username: username, password: password));
 
-      if(mounted) {
-        // Proses hasil login
-        if (response.token.isNotEmpty) {
-          // Navigasi ke NextPage
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => NextPage()),
-          );
-        } else {
-          // Tampilkan pesan error
+          // Proses hasil login
+          if (response.token.isNotEmpty) {
+            // Navigasi ke NextPage
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const NextPage()),
+            );
+          } else {
+            // Tampilkan pesan error
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Login gagal! Silakan coba lagi.'),
+            ));
+          }
+        } on Exception catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text('Login gagal! Silakan coba lagi.'),
+            content: Text(e.toString()),
           ));
         }
       }
-
     }
   }
 
@@ -55,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
       ),
       body: Form(
         key: _formKey,
@@ -64,9 +63,9 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               TextFormField(
-                key: Key('username'),
+                key: const Key('username'),
                 controller: _usernameController,
-                decoration: InputDecoration(labelText: 'Username'),
+                decoration: const InputDecoration(labelText: 'Username'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Username tidak boleh kosong';
@@ -75,11 +74,11 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
-                key: Key('password'),
+                key: const Key('password'),
                 controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'Password'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Password tidak boleh kosong';
@@ -88,10 +87,10 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
               ),
-              SizedBox(height: 24.0),
+              const SizedBox(height: 24.0),
               ElevatedButton(
                 onPressed: _login,
-                child: Text('Login'),
+                child: const Text('Login'),
               ),
             ],
           ),
