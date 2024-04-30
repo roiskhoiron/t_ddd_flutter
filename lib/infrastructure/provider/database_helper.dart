@@ -1,4 +1,3 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../../domain/entities/user.dart';
@@ -20,11 +19,12 @@ class DatabaseHelper {
 
   Future<Database> _openDatabase() async {
 
+    // if(_database != null) return _database!;
     // Implementasi untuk membuka database SQLite
     // Contoh menggunakan sqflite package
     // final dbPath = await getDatabasesPath();
     // final path = '$dbPath/your_database.db';
-    var db = await databaseFactoryFfi.openDatabase(inMemoryDatabasePath, options: OpenDatabaseOptions(
+    _database = await databaseFactoryFfi.openDatabase(inMemoryDatabasePath, options: OpenDatabaseOptions(
       version: 1,
       onCreate: (db, version) async {
         // Query untuk membuat tabel database
@@ -36,19 +36,34 @@ class DatabaseHelper {
         password TEXT NOT NULL
       )
     ''');
+
+        // query untuk menambahkan data ke dalam tabel
+        await db.insert('users', {
+          'id': 1,
+          'username': 'test',
+          'email': 'test@example.com',
+          'password': 'password'});
       },
     ));
 
     // await _initTables();
-    return db;
+    return _database!;
   }
 
-  Future<User?> get(int id) async {
+  Future insert({required String table, required Map<String, Object?> data}) async {
+    // Dapatkan database instance
+    final db = await database;
+
+    // Sisipkan data pengguna ke dalam tabel users
+    await db.insert('users', data);
+  }
+
+  Future<User?> get({required String table, required Object? id}) async {
     // Dapatkan database instance
     final db = await database;
 
     // Buat query SQL untuk mengambil data pengguna berdasarkan ID
-    final query = 'SELECT * FROM users WHERE id = ?';
+    final query = 'SELECT * FROM $table WHERE id = ?';
 
     // Jalankan query dengan argumen ID pengguna
     final result = await db.rawQuery(query, [id]);

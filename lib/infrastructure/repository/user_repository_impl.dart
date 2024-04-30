@@ -17,7 +17,6 @@ class UserRepositoryImpl implements UserRepository {
     final result = await db.rawQuery(query, args);
 
     if (result.isEmpty) {
-      return null;
       throw InvalidCredentialsException();
     }
 
@@ -33,14 +32,14 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   Future<User?> getUserById(int id) async {
-    return DatabaseHelper.instance.get(id);
+    return DatabaseHelper.instance.get(table: 'users', id: id);
   }
 
   @override
-  Future register(User data) {
+  Future<bool> register(User data) {
     // Sisipkan data pengguna ke dalam database
     return DatabaseHelper.instance.database.then((db) {
-      return db.insert('users', data.toJson());
+      return db.insert('users', data.toJson()).then((value) => value == 1);
     });
   }
 }

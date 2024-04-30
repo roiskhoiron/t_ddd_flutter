@@ -2,11 +2,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import '../../../lib/infrastructure/provider/database_helper.dart';
+import 'package:t_ddd_flutter/infrastructure/provider/database_helper.dart';
 
 @GenerateMocks([DatabaseHelper])
 void main() {
-  group('DatabaseHelper', () {
+  group('Unit Test', () {
     late DatabaseHelper databaseHelper;
     late Database db;
 
@@ -24,16 +24,16 @@ void main() {
 
     test('DatabaseHelper.insert() should insert a new record into the database', () async {
       // Buat data untuk dimasukkan
-      final data = {'id': 1, 'username': 'John Doe', 'email': 'johndoe@example.com', 'password': 'password'};
+      final data = {'id': 2, 'username': 'John Doe', 'email': 'johndoe@example.com', 'password': 'password'};
 
       // Sisipkan data ke dalam database
       final insertedId = await db.insert('users', data);
 
       // Verifikasi bahwa data telah dimasukkan dengan benar
-      expect(insertedId, 1);
+      expect(insertedId, 2);
 
       // Ambil data yang dimasukkan
-      final retrievedData = await db.query('users', where: 'id = ?', whereArgs: [1]);
+      final retrievedData = await db.query('users', where: 'id = ?', whereArgs: [2]);
 
       // Verifikasi bahwa data yang diambil sesuai dengan data yang dimasukkan
       expect(retrievedData.first, data);
