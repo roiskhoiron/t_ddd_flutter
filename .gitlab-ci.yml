@@ -24,17 +24,20 @@ build:
 unit-test:
   stage: unit_test
   script:
-    - flutter test --coverage test/unit_test
+    - cd test/unit_test
+    - flutter test --coverage
 
 widget-test:
   stage: widget_test
   script:
+    - cd test/widget_test
     - flutter test --coverage test/widget_test
 
 integration-test:
   stage: integration_test
   script:
-    - flutter test --coverage test/integration_test
+    - cd test
+    - flutter test --coverage integration_test
 
 golden_test:
   stage: golden_test
