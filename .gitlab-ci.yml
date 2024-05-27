@@ -1,0 +1,24 @@
+image: cirrusci/flutter:latest
+
+stages:
+  - build
+  - test
+
+variables:
+  JAVA_VERSION: "12"
+
+before_script:
+  - flutter channel stable
+  - flutter upgrade
+  - flutter pub get
+
+build:
+  stage: build
+  script:
+    - flutter --version
+    - flutter analyze
+
+test:
+  stage: test
+  script:
+    - flutter test
