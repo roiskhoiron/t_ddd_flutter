@@ -1,4 +1,4 @@
-image: cirrusci/flutter:latest
+image: scm.getih.net:5050/dsi-container-images/docker-flutter/flutter-dsi:latest
 
 stages:
   - build
