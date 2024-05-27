@@ -2,7 +2,10 @@ image: growerp/flutter-sdk-image:latest
 
 stages:
   - build
-  - test
+  - unit_test
+  - widget_test
+  - integration_test
+  - golden_test
 
 variables:
   JAVA_VERSION: "12"
@@ -18,7 +21,22 @@ build:
     - flutter --version
     - flutter analyze
 
-test:
-  stage: test
+unit-test:
+  stage: unit_test
   script:
-    - flutter test
+    - flutter test --coverage test/unit_test
+
+widget-test:
+  stage: widget_test
+  script:
+    - flutter test --coverage test/widget_test
+
+integration-test:
+  stage: integration_test
+  script:
+    - flutter test --coverage test/integration_test
+
+golden_test:
+  stage: golden_test
+  script:
+    - flutter test --coverage --update-goldens test/golden_test
