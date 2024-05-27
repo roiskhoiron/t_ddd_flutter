@@ -9,7 +9,6 @@ variables:
 
 before_script:
   - flutter channel stable
-  - flutter upgrade
   - flutter pub get
 
 build:
