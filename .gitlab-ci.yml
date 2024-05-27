@@ -1,4 +1,4 @@
-image: scm.getih.net:5050/dsi-container-images/docker-flutter/flutter-dsi:latest
+image: growerp/flutter-sdk-image:latest
 
 stages:
   - build
