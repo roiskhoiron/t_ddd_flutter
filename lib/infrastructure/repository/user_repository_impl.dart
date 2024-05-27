@@ -1,4 +1,3 @@
-import 'package:mockito/annotations.dart';
 
 import '../../domain/entities/user.dart';
 import '../../domain/interface/user_repository.dart';

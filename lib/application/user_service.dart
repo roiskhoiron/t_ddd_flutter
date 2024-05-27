@@ -7,17 +7,17 @@ import '../domain/interface/user_repository.dart';
 import '../domain/validator/exception.dart';
 
 class UserService {
-  UserRepository _userRepository;
+  final UserRepository _userRepository;
 
   UserService(this._userRepository);
 
   Future<LoginResponse> login(LoginRequest request) async {
     // Validasi input login
-    if (request.username == null || request.username.isEmpty) {
+    if (request.username.isEmpty) {
       throw UsernameEmptyException();
     }
 
-    if (request.password == null || request.password.isEmpty) {
+    if (request.password.isEmpty) {
       throw PasswordEmptyException();
     }
 

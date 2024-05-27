@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../application/user_service.dart';
 import '../domain/entities/login_request.dart';
@@ -7,16 +6,20 @@ import '../infrastructure/repository/user_repository_impl.dart';
 import 'next_page.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
-  _LoginPageState createState() => _LoginPageState();
+  LoginPageState createState() {
+    return LoginPageState();
+  }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Future<void> _login() async {
+  Future<void> _login(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       final username = _usernameController.text;
       final password = _passwordController.text;
@@ -25,18 +28,21 @@ class _LoginPageState extends State<LoginPage> {
       final userService = UserService(UserRepositoryImpl());
       if (mounted) {
         try {
+
           final response = await userService
               .login(LoginRequest(username: username, password: password));
 
           // Proses hasil login
           if (response.token.isNotEmpty) {
             // Navigasi ke NextPage
+            if (!context.mounted) return;
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const NextPage()),
             );
           } else {
             // Tampilkan pesan error
+            if (!context.mounted) return;
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Login gagal! Silakan coba lagi.'),
             ));
@@ -89,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 24.0),
               ElevatedButton(
-                onPressed: _login,
+                onPressed: () => _login(context),
                 child: const Text('Login'),
               ),
             ],
