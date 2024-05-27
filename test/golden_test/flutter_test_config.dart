@@ -6,6 +6,7 @@
 /// https://opensource.org/licenses/BSD-3-Clause
 /// ***************************************************
 ///
+library;
 
 import 'dart:async';
 import 'dart:io';

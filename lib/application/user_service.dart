@@ -7,7 +7,7 @@ import '../domain/interface/user_repository.dart';
 import '../domain/validator/exception.dart';
 
 class UserService {
-  UserRepository _userRepository;
+  final UserRepository _userRepository;
 
   UserService(this._userRepository);
 
