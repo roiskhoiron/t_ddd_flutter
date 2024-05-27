@@ -31,7 +31,7 @@ widget-test:
   stage: widget_test
   script:
     - cd test/widget_test
-    - flutter test --coverage test/widget_test
+    - flutter test --coverage
 
 integration-test:
   stage: integration_test
