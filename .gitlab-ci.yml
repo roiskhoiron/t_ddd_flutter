@@ -1,106 +1,58 @@
 image: growerp/flutter-sdk-image:latest
 
 stages:
-  - test
+#  - build
+  - unit-test
+  - widget-test
+  - integration-test
+  - golden-test
 
 variables:
-  JAVA_VERSION: "12"
+  FLUTTER_VERSION: '3.22.1-stable'
+  JAVA_VERSION: '11'
 
 before_script:
-  - uname -a
-#  - sudo -V
-  - apt-get --version
-  - apt-get update -qq && apt-get install -y -qq sqlite3 libsqlite3-dev nodejs
-  - gem install bundler --no-document
-  - bundle install --jobs $(nproc)  "${FLAGS[@]}"
-  - SQLITE_PATH=$(find / -name libsqlite3.so 2>/dev/null | grep -m 1 libsqlite3.so)
-  - export LD_LIBRARY_PATH=$SQLITE_PATH:$LD_LIBRARY_PATH
-  - flutter channel stable
-  - flutter upgrade
-  - flutter pub get
-
-
-test:
-  stage: test
-  script:
-    - flutter test --coverage test/unit_test
-  artifacts:
-    paths:
-      - coverage
-
-#stages:
-#  - test
-#
-## SONARQUBE
-#sonarqube-check:
-#  stage: test
-#  tags:
-#    - flutter-docker
-#  image:
-#    name: scm.getih.net:5050/dsi-container-images/docker-flutter/flutter-dsi:latest
-#    entrypoint: [""]
-#  script:
-#    - flutter pub get
-#    - flutter test --coverage test/unit_test
-
-
-#stages:
-#  - build
-#  - unit-test
-#  - widget-test
-#  - integration-test
-#  - golden-test
-#
-#variables:
-#  FLUTTER_VERSION: '3.22.1-stable'
-#  JAVA_VERSION: '11'
-#
-#before_script:
-#  - apt-get update && apt-get install -y curl unzip xz-utils git
-#  - curl -sL https://deb.nodesource.com/setup_20.x | bash -
-#  - apt-get install -y nodejs
-#  - apt-get install -y openjdk-$JAVA_VERSION-jdk
-#  - curl -sL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.0-stable.tar.xz | tar -xJ
-#  - export PATH="$PATH:$PWD/flutter/bin"
-#  - flutter doctor --version
+#  - flutter channel stable
+#  - flutter upgrade
+  - flutter doctor --version
 #  - flutter --version
-#
-#build:
-#  stage: build
-#  image: ubuntu:latest
-#  script:
-#    - flutter pub get
-#    - flutter analyze
-#    - flutter test
-#
-#unit-test:
-#  stage: unit-test
-#  image: ubuntu:latest
-#  script:
-#    - flutter pub get
-#    - flutter analyze
-#    - flutter test --coverage test/unit_test
-#
-#widget-test:
-#  stage: widget-test
-#  image: ubuntu:latest
-#  script:
-#    - flutter pub get
-#    - flutter analyze
-#    - flutter test --coverage test/widget_test
-#
-#integration-test:
-#  stage: integration-test
-#  image: ubuntu:latest
-#  script:
-#    - flutter pub get
-#    - flutter analyze
-#    - flutter test --coverage test/integration_test
-#
-#golden-test:
-#  stage: golden-test
-#  image: ubuntu:latest
-#  script:
-#    - flutter pub get
-#    - flutter analyze
-#    - flutter test --coverage --update-goldens test/golden_test
+
+build:
+  stage: build
+  image: ubuntu:latest
+  script:
+    - flutter pub get
+    - flutter analyze
+    - flutter test
+
+unit-test:
+  stage: unit-test
+  image: ubuntu:latest
+  script:
+    - flutter pub get
+    - flutter analyze
+    - flutter test --coverage test/unit_test
+
+widget-test:
+  stage: widget-test
+  image: ubuntu:latest
+  script:
+    - flutter pub get
+    - flutter analyze
+    - flutter test --coverage test/widget_test
+
+integration-test:
+  stage: integration-test
+  image: ubuntu:latest
+  script:
+    - flutter pub get
+    - flutter analyze
+    - flutter test --coverage test/integration_test
+
+golden-test:
+  stage: golden-test
+  image: ubuntu:latest
+  script:
+    - flutter pub get
+    - flutter analyze
+    - flutter test --coverage --update-goldens test/golden_test
