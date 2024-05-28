@@ -1,6 +1,7 @@
-image: growerp/flutter-sdk-image:latest
+image: ubuntu:latest
 
 stages:
+  - setup
   - build
   - test
   - unit_test
@@ -12,9 +13,18 @@ variables:
   JAVA_VERSION: "12"
 
 before_script:
-  #  - flutter channel stable
-  #  - flutter upgrade
+  - apt-get update -qy
+  - apt-get install -y curl git unzip xz-utils zip libglu1-mesa openjdk-8-jdk wget
+  - wget https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_2.8.1-stable.tar.xz
+  - tar xf flutter_linux_2.8.1-stable.tar.xz -C /usr
+  - export PATH="$PATH:`pwd`/flutter/bin"
+  - flutter doctor
   - flutter pub get
+
+setup:
+  stage: setup
+  script:
+    - apt-get install -y build-essential libsqlite3-dev
 
 build:
   stage: build
@@ -24,10 +34,7 @@ build:
 
 test:
   stage: test
-  image: debian:stable-slim
   before_script:
-    - apt-get update -qy
-    - apt-get install -y build-essential libsqlite3-dev
     - flutter pub global activate junitreport
     - export PATH="$PATH:$HOME/.pub-cache/bin"
   script:
@@ -39,9 +46,6 @@ test:
     name: coverage
     paths:
       - $CI_PROJECT_DIR/coverage
-#    reports:
-#      junit: coverage/report.xml
-
 
 unit-test:
   stage: unit_test
