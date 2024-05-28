@@ -1,4 +1,4 @@
-image: growerp/flutter-sdk-image:latest
+image: debian:stable-slim
 
 stages:
   - build
@@ -24,7 +24,10 @@ build:
 
 test:
   stage: test
+  image: growerp/flutter-sdk-image:latest
   before_script:
+    - apt-get update -qy
+    - apt-get install -y build-essential libsqlite3-dev
     - flutter pub global activate junitreport
     - export PATH="$PATH:$HOME/.pub-cache/bin"
   script:
@@ -32,10 +35,10 @@ test:
     - lcov --summary coverage/lcov.info
     - genhtml coverage/lcov.info --output=coverage
   coverage: '/lines\.*: \d+\.\d+\%/'
-#  artifacts:
-#    name: coverage
-#    paths:
-#      - $CI_PROJECT_DIR/coverage
+  artifacts:
+    name: coverage
+    paths:
+      - $CI_PROJECT_DIR/coverage
 #    reports:
 #      junit: coverage/report.xml
 
