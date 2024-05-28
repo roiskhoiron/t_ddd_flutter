@@ -2,6 +2,7 @@ image: growerp/flutter-sdk-image:latest
 
 stages:
   - build
+  - install-libsqlite3-dev
   - unit_test
   - widget_test
   - integration_test
@@ -20,6 +21,12 @@ build:
   script:
     - flutter --version
     - flutter analyze
+
+install-libsqlite3-dev:
+    stage: install-libsqlite3-dev
+    script:
+        - apt-get update
+        - apt-get install -y libsqlite3-dev
 
 unit-test:
   stage: unit_test
