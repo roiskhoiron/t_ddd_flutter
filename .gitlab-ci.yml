@@ -36,8 +36,9 @@ widget-test:
 integration-test:
   stage: integration_test
   script:
-    - cd test
-    - flutter test --coverage integration_test
+    - cd test/integration_test
+    - flutter test --coverage
+#    - flutter test --coverage integration_test
 
 golden_test:
   stage: golden_test
