@@ -1,7 +1,6 @@
 image: ubuntu:latest
 
 stages:
-  - setup
   - build
   - test
   - unit_test
@@ -14,29 +13,24 @@ variables:
 
 before_script:
   - apt-get update -qy
-  - apt-get install -y curl git unzip xz-utils zip libglu1-mesa openjdk-8-jdk wget
-  - wget https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_2.8.1-stable.tar.xz
-  - tar xf flutter_linux_2.8.1-stable.tar.xz -C /usr
-  - export PATH="$PATH:`pwd`/flutter/bin"
-  - flutter doctor
-  - flutter pub get
-
-setup:
-  stage: setup
-  script:
-    - apt-get install -y build-essential libsqlite3-dev
+  - apt-get install -y build-essential libsqlite3-dev
+  #  - flutter channel stable
+  #  - flutter upgrade
+  #  - flutter pub get
 
 build:
   stage: build
+  image: growerp/flutter-sdk-image:latest
   script:
     - flutter --version
+    - flutter pub get
     - flutter analyze
 
 test:
   stage: test
-  before_script:
-    - flutter pub global activate junitreport
-    - export PATH="$PATH:$HOME/.pub-cache/bin"
+#  before_script:
+#    - flutter pub global activate junitreport
+#    - export PATH="$PATH:$HOME/.pub-cache/bin"
   script:
     - flutter test --machine --coverage test/unit_test
     - lcov --summary coverage/lcov.info
@@ -46,6 +40,9 @@ test:
     name: coverage
     paths:
       - $CI_PROJECT_DIR/coverage
+#    reports:
+#      junit: coverage/report.xml
+
 
 unit-test:
   stage: unit_test
