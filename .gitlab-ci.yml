@@ -10,7 +10,7 @@ variables:
   JAVA_VERSION: '12'
 
 before_script:
-  - apt-get update && apt-get install -y curl unzip
+  - apt-get update && apt-get install -y curl unzip xz-utils
   - curl -sL https://deb.nodesource.com/setup_20.x | bash -
   - apt-get install -y nodejs
   - curl -sL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.0-stable.tar.xz | tar -xJ
