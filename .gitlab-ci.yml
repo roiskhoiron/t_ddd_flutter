@@ -24,23 +24,19 @@ build:
 unit-test:
   stage: unit_test
   script:
-    - cd test/unit_test
-    - flutter test --coverage
+    - flutter test test/unit_test --coverage
 
 widget-test:
   stage: widget_test
   script:
-    - cd test/widget_test
-    - flutter test --coverage
+    - flutter test test/widget_test --coverage
 
 integration-test:
   stage: integration_test
   script:
-    - cd test/integration_test
-    - flutter test --coverage
-#    - flutter test --coverage integration_test
+    - flutter test test/integration_test --coverage
 
 golden_test:
   stage: golden_test
   script:
-    - flutter test --coverage --update-goldens test/golden_test
+    - flutter test  --update-goldens test/golden_test --coverage
