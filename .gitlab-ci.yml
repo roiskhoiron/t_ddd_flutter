@@ -7,13 +7,13 @@ stages:
 
 variables:
   FLUTTER_VERSION: '3.22.0-stable'
-  JAVA_VERSION: '12.x'
+  JAVA_VERSION: '11'
 
 before_script:
   - apt-get update && apt-get install -y curl unzip
   - curl -sL https://deb.nodesource.com/setup_20.x | bash -
   - apt-get install -y nodejs
-  - apt-get install -y openjdk-$JAVA_VERSION
+  - apt-get install -y openjdk-$JAVA_VERSION-jdk
   - curl -sL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_$FLUTTER_VERSION.tar.xz | tar -xJ
   - export PATH="$PATH:$PWD/flutter/bin"
   - flutter doctor
