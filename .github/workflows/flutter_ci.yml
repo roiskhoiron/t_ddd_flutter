@@ -90,13 +90,13 @@ jobs:
       - name: Analyze project source
         run: flutter analyze
 
-      - run: cd test/unit_test
+
 
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
       - name: Run unit tests
-        run: flutter test --coverage
+        run: flutter test --coverage test/unit_test
 
   widget-test:
     runs-on: ubuntu-latest
@@ -134,12 +134,11 @@ jobs:
       - name: Analyze project source
         run: flutter analyze
 
-      - run: cd test/widget_test
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
       - name: Run widget tests
-        run: flutter test --coverage
+        run: flutter test --coverage test/widget_test
 
   integration-test:
     runs-on: ubuntu-latest
@@ -177,13 +176,12 @@ jobs:
       - name: Analyze project source
         run: flutter analyze
 
-      - run: cd test/integration_test
 
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
       - name: Run integration tests
-        run: flutter test --coverage
+        run: flutter test --coverage test/integration_test
 #        run: flutter test --coverage integration_test
 
   golden-test:
