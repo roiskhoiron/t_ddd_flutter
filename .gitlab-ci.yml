@@ -1,17 +1,42 @@
+image: growerp/flutter-sdk-image:latest
+
 stages:
+  - build
   - test
 
-# SONARQUBE
-sonarqube-check:
-  stage: test
-  tags:
-    - flutter-docker
-  image:
-    name: scm.getih.net:5050/dsi-container-images/docker-flutter/flutter-dsi:latest
-    entrypoint: [""]
+variables:
+  JAVA_VERSION: "12"
+
+before_script:
+  - flutter channel stable
+  - flutter upgrade
+  - flutter pub get
+
+build:
+  stage: build
   script:
-    - flutter pub get
+    - flutter doctor --version
+    - flutter analyze
+
+test:
+  stage: test
+  script:
     - flutter test --coverage test/unit_test
+
+#stages:
+#  - test
+#
+## SONARQUBE
+#sonarqube-check:
+#  stage: test
+#  tags:
+#    - flutter-docker
+#  image:
+#    name: scm.getih.net:5050/dsi-container-images/docker-flutter/flutter-dsi:latest
+#    entrypoint: [""]
+#  script:
+#    - flutter pub get
+#    - flutter test --coverage test/unit_test
 
 
 #stages:
