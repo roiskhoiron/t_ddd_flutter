@@ -13,7 +13,7 @@ before_script:
   - apt-get update && apt-get install -y curl unzip
   - curl -sL https://deb.nodesource.com/setup_20.x | bash -
   - apt-get install -y nodejs
-  - curl -sL https://github.com/flutter/flutter/archive/refs/tags/$FLUTTER_VERSION.tar.gz | tar -xz
+  - curl -sL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.0-stable.tar.xz | tar -xz
   - export PATH="$PATH:$PWD/flutter-$FLUTTER_VERSION/bin"
   - flutter doctor
   - flutter --version
