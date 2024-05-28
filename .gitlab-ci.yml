@@ -1,7 +1,7 @@
 image: growerp/flutter-sdk-image:latest
 
 stages:
-  - build
+#  - build
   - test
 
 variables:
@@ -22,6 +22,9 @@ test:
   stage: test
   script:
     - flutter test --coverage test/unit_test
+  artifacts:
+    paths:
+      - coverage
 
 #stages:
 #  - test
