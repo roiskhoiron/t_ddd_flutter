@@ -1,65 +1,65 @@
-image: ubuntu:latest
-
 stages:
   - build
-  - test
-  - unit_test
-  - widget_test
-  - integration_test
-  - golden_test
+  - unit-test
+  - widget-test
+  - integration-test
+  - golden-test
 
 variables:
-  JAVA_VERSION: "12"
+  FLUTTER_VERSION: '3.x'
+  JAVA_VERSION: '12'
 
 before_script:
-  - apt-get update -qy
-  - apt-get install -y build-essential libsqlite3-dev
-  #  - flutter channel stable
-  #  - flutter upgrade
-  #  - flutter pub get
+  - apt-get update && apt-get install -y curl unzip
+  - curl -sL https://deb.nodesource.com/setup_14.x | bash -
+  - apt-get install -y nodejs
+  - curl -sL https://github.com/flutter/flutter/archive/refs/tags/$FLUTTER_VERSION.tar.gz | tar -xz
+  - export PATH="$PATH:$PWD/flutter-$FLUTTER_VERSION/bin"
+  - flutter doctor
+  - flutter --version
 
 build:
   stage: build
-  image: growerp/flutter-sdk-image:latest
+  image: ubuntu:latest
   script:
-    - flutter --version
+    - apt-get install -y openjdk-$JAVA_VERSION-jdk
     - flutter pub get
     - flutter analyze
-
-test:
-  stage: test
-#  before_script:
-#    - flutter pub global activate junitreport
-#    - export PATH="$PATH:$HOME/.pub-cache/bin"
-  script:
-    - flutter test --machine --coverage test/unit_test
-    - lcov --summary coverage/lcov.info
-    - genhtml coverage/lcov.info --output=coverage
-  coverage: '/lines\.*: \d+\.\d+\%/'
-  artifacts:
-    name: coverage
-    paths:
-      - $CI_PROJECT_DIR/coverage
-#    reports:
-#      junit: coverage/report.xml
-
+    - flutter test
 
 unit-test:
-  stage: unit_test
+  stage: unit-test
+  image: ubuntu:latest
   script:
-    - flutter test test/unit_test --coverage
+    - apt-get install -y openjdk-$JAVA_VERSION-jdk
+    - flutter pub get
+    - flutter analyze
+    - flutter test --coverage test/unit_test
 
 widget-test:
-  stage: widget_test
+  stage: widget-test
+  image: ubuntu:latest
   script:
-    - flutter test test/widget_test --coverage
+    - apt-get install -y openjdk-$JAVA_VERSION-jdk
+    - flutter pub get
+    - flutter analyze
+    - flutter test --coverage test/widget_test
 
 integration-test:
-  stage: integration_test
+  stage: integration-test
+  image: ubuntu:latest
   script:
-    - flutter test test/integration_test --coverage
+    - apt-get install -y openjdk-$JAVA_VERSION-jdk
+    - flutter pub get
+    - flutter analyze
+    - flutter test --coverage test/integration_test
 
-golden_test:
-  stage: golden_test
+golden-test:
+  stage: golden-test
+  image: ubuntu:latest
   script:
-    - flutter test  --update-goldens test/golden_test --coverage
+    - apt-get install -y openjdk-$JAVA_VERSION-jdk
+    - flutter pub get
+    - flutter analyze
+    - flutter test --coverage --update-goldens test/golden_test
+
