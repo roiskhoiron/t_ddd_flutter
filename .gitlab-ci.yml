@@ -3,7 +3,6 @@ image: growerp/flutter-sdk-image:latest
 stages:
   - build
   - test
-  - install-libsqlite3-dev
   - unit_test
   - widget_test
   - integration_test
@@ -29,7 +28,7 @@ test:
     - flutter pub global activate junitreport
     - export PATH="$PATH:$HOME/.pub-cache/bin"
   script:
-    - flutter test --machine --coverage
+    - flutter test --machine --coverage test/unit_test test/widget_test test/integration_test
     - lcov --summary coverage/lcov.info
     - genhtml coverage/lcov.info --output=coverage
   coverage: '/lines\.*: \d+\.\d+\%/'
@@ -40,11 +39,6 @@ test:
 #    reports:
 #      junit: coverage/report.xml
 
-install-libsqlite3-dev:
-    stage: install-libsqlite3-dev
-    script:
-      - apt-get update -qy
-      - apt-get install -y build-essential libsqlite3-dev
 
 unit-test:
   stage: unit_test
