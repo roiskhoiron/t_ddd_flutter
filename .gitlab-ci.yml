@@ -13,7 +13,7 @@ before_script:
   - apt-get update && apt-get install -y curl unzip
   - curl -sL https://deb.nodesource.com/setup_20.x | bash -
   - apt-get install -y nodejs
-  - curl -sL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_$FLUTTER_VERSION.tar.xz | tar -xJ
+  - curl -sL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.0-stable.tar.xz | tar -xJ
   - export PATH="$PATH:$PWD/flutter/bin"
   - curl -L -o openjdk-$JAVA_VERSION.tar.gz https://download.java.net/java/GA/jdk$JAVA_VERSION/9/GPL/openjdk-$JAVA_VERSION_linux-x64_bin.tar.gz
   - tar -xvf openjdk-$JAVA_VERSION.tar.gz
