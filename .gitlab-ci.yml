@@ -7,6 +7,9 @@ variables:
   JAVA_VERSION: "12"
 
 before_script:
+  - uname -a
+  - sudo -V
+  - apt-get --version
   - apt-get install libsqlite3-dev
   - SQLITE_PATH=$(find / -name libsqlite3.so 2>/dev/null | grep -m 1 libsqlite3.so)
   - export LD_LIBRARY_PATH=$SQLITE_PATH:$LD_LIBRARY_PATH
