@@ -6,15 +6,16 @@ stages:
   - golden-test
 
 variables:
-  FLUTTER_VERSION: '3.x'
+  FLUTTER_VERSION: '3.22.0-stable'
   JAVA_VERSION: '12'
 
 before_script:
   - apt-get update && apt-get install -y curl unzip
-  - curl -sL https://deb.nodesource.com/setup_20.x | bash -
+  - curl -sL https://deb.nodesource.com/setup_14.x | bash -
   - apt-get install -y nodejs
-  - curl -sL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.0-stable.tar.xz | tar -xz
-  - export PATH="$PATH:$PWD/flutter-$FLUTTER_VERSION/bin"
+  - apt-get install -y openjdk-$JAVA_VERSION-jdk
+  - curl -sL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_$FLUTTER_VERSION.tar.xz | tar -xJ
+  - export PATH="$PATH:$PWD/flutter/bin"
   - flutter doctor
   - flutter --version
 
@@ -22,7 +23,6 @@ build:
   stage: build
   image: ubuntu:latest
   script:
-    - apt-get install -y openjdk-$JAVA_VERSION-jdk
     - flutter pub get
     - flutter analyze
     - flutter test
@@ -31,7 +31,6 @@ unit-test:
   stage: unit-test
   image: ubuntu:latest
   script:
-    - apt-get install -y openjdk-$JAVA_VERSION-jdk
     - flutter pub get
     - flutter analyze
     - flutter test --coverage test/unit_test
@@ -40,7 +39,6 @@ widget-test:
   stage: widget-test
   image: ubuntu:latest
   script:
-    - apt-get install -y openjdk-$JAVA_VERSION-jdk
     - flutter pub get
     - flutter analyze
     - flutter test --coverage test/widget_test
@@ -49,7 +47,6 @@ integration-test:
   stage: integration-test
   image: ubuntu:latest
   script:
-    - apt-get install -y openjdk-$JAVA_VERSION-jdk
     - flutter pub get
     - flutter analyze
     - flutter test --coverage test/integration_test
@@ -58,8 +55,6 @@ golden-test:
   stage: golden-test
   image: ubuntu:latest
   script:
-    - apt-get install -y openjdk-$JAVA_VERSION-jdk
     - flutter pub get
     - flutter analyze
     - flutter test --coverage --update-goldens test/golden_test
-
