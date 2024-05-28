@@ -1,4 +1,4 @@
-image: debian:stable-slim
+image: growerp/flutter-sdk-image:latest
 
 stages:
   - build
@@ -24,7 +24,7 @@ build:
 
 test:
   stage: test
-  image: growerp/flutter-sdk-image:latest
+  image: debian:stable-slim
   before_script:
     - apt-get update -qy
     - apt-get install -y build-essential libsqlite3-dev
