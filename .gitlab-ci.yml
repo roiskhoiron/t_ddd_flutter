@@ -6,7 +6,7 @@ stages:
   - golden-test
 
 variables:
-  FLUTTER_VERSION: '3.22.0-stable'
+  FLUTTER_VERSION: '3.22.1-stable'
   JAVA_VERSION: '11'
 
 before_script:
