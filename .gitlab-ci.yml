@@ -7,7 +7,10 @@ variables:
   JAVA_VERSION: "12"
 
 before_script:
-  - sudo apt-get install libsqlite3-dev
+  - apt-get install libsqlite3-dev
+  - SQLITE_PATH=$(find / -name libsqlite3.so 2>/dev/null | grep -m 1 libsqlite3.so)
+  - echo "SQLite Path: $SQLITE_PATH"
+  - export LD_LIBRARY_PATH=$SQLITE_PATH:$LD_LIBRARY_PATH
   - flutter channel stable
   - flutter upgrade
   - flutter pub get
