@@ -100,7 +100,7 @@ jobs:
 
       - name: Generate coverage report
         run: |
-          flutter pub global activate lcov
+          flutter pub global activate coverage
           genhtml coverage/lcov.info -o coverage/html
       - name: Upload coverage report artifact
         uses: actions/upload-artifact@v2
@@ -152,7 +152,7 @@ jobs:
 
       - name: Generate coverage report
         run: |
-          flutter pub global activate lcov
+          flutter pub global activate coverage
           genhtml coverage/lcov.info -o coverage/html
       - name: Upload coverage report artifact
         uses: actions/upload-artifact@v2
@@ -206,7 +206,7 @@ jobs:
 
       - name: Generate coverage report
         run: |
-          flutter pub global activate lcov
+          flutter pub global activate coverage
           genhtml coverage/lcov.info -o coverage/html
       - name: Upload coverage report artifact
         uses: actions/upload-artifact@v2
@@ -258,7 +258,7 @@ jobs:
 
       - name: Generate coverage report
         run: |
-          flutter pub global activate lcov
+          flutter pub global activate coverage
           genhtml coverage/lcov.info -o coverage/html
       - name: Upload coverage report artifact
         uses: actions/upload-artifact@v2
