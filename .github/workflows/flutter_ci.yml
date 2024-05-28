@@ -98,6 +98,16 @@ jobs:
       - name: Run unit tests
         run: flutter test --coverage test/unit_test
 
+      - name: Generate coverage report
+        run: |
+          flutter pub global activate lcov
+          genhtml coverage/lcov.info -o coverage/html
+      - name: Upload coverage report artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: unit-test-coverage-report
+          path: coverage/html/
+
   widget-test:
     runs-on: ubuntu-latest
 
@@ -139,6 +149,16 @@ jobs:
       # want to change this to 'flutter test'.
       - name: Run widget tests
         run: flutter test --coverage test/widget_test
+
+      - name: Generate coverage report
+        run: |
+          flutter pub global activate lcov
+          genhtml coverage/lcov.info -o coverage/html
+      - name: Upload coverage report artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: widget-test-coverage-report
+          path: coverage/html/
 
   integration-test:
     runs-on: ubuntu-latest
@@ -184,6 +204,16 @@ jobs:
         run: flutter test --coverage test/integration_test
 #        run: flutter test --coverage integration_test
 
+      - name: Generate coverage report
+        run: |
+          flutter pub global activate lcov
+          genhtml coverage/lcov.info -o coverage/html
+      - name: Upload coverage report artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: integration-test-coverage-report
+          path: coverage/html/
+
   golden-test:
     runs-on: ubuntu-latest
 
@@ -225,5 +255,15 @@ jobs:
       # want to change this to 'flutter test'.
       - name: Run golden tests
         run: flutter test --coverage --update-goldens test/golden_test
+
+      - name: Generate coverage report
+        run: |
+          flutter pub global activate lcov
+          genhtml coverage/lcov.info -o coverage/html
+      - name: Upload coverage report artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: golden-test-coverage-report
+          path: coverage/html/
 
 
