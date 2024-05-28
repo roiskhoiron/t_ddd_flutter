@@ -11,7 +11,7 @@ variables:
 
 before_script:
   - apt-get update && apt-get install -y curl unzip
-  - curl -sL https://deb.nodesource.com/setup_14.x | bash -
+  - curl -sL https://deb.nodesource.com/setup_20.x | bash -
   - apt-get install -y nodejs
   - curl -sL https://github.com/flutter/flutter/archive/refs/tags/$FLUTTER_VERSION.tar.gz | tar -xz
   - export PATH="$PATH:$PWD/flutter-$FLUTTER_VERSION/bin"
