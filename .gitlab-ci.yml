@@ -1,22 +1,17 @@
 image: growerp/flutter-sdk-image:latest
 
 stages:
-#  - build
   - test
 
 variables:
   JAVA_VERSION: "12"
 
 before_script:
+  - sudo apt-get install libsqlite3-dev
   - flutter channel stable
   - flutter upgrade
   - flutter pub get
 
-build:
-  stage: build
-  script:
-    - flutter doctor --version
-    - flutter analyze
 
 test:
   stage: test
