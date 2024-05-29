@@ -12,10 +12,7 @@ variables:
   JAVA_VERSION: '11'
 
 before_script:
-#  - flutter channel stable
-#  - flutter upgrade
   - flutter doctor --version
-#  - flutter --version
 
 build:
   stage: build
