@@ -1,4 +1,4 @@
-image: growerp/flutter-sdk-image:latest
+image: khoironrois/linux-ubuntu-flutter:latest
 
 stages:
 #  - build
