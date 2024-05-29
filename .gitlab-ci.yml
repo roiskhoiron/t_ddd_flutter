@@ -7,10 +7,6 @@ stages:
   - integration-test
   - golden-test
 
-variables:
-  FLUTTER_VERSION: '3.22.1-stable'
-  JAVA_VERSION: '11'
-
 before_script:
   - flutter doctor --version
 
