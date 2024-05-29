@@ -1,7 +1,7 @@
-image: growerp/flutter-sdk-image:latest
+image: khoironrois/linux-ubuntu-flutter:latest
 
 stages:
-#  - build
+  - build
   - unit-test
   - widget-test
   - integration-test
@@ -19,7 +19,6 @@ before_script:
 
 build:
   stage: build
-  image: ubuntu:latest
   script:
     - flutter pub get
     - flutter analyze
@@ -27,7 +26,6 @@ build:
 
 unit-test:
   stage: unit-test
-  image: ubuntu:latest
   script:
     - flutter pub get
     - flutter analyze
@@ -35,7 +33,6 @@ unit-test:
 
 widget-test:
   stage: widget-test
-  image: ubuntu:latest
   script:
     - flutter pub get
     - flutter analyze
@@ -43,7 +40,6 @@ widget-test:
 
 integration-test:
   stage: integration-test
-  image: ubuntu:latest
   script:
     - flutter pub get
     - flutter analyze
@@ -51,7 +47,6 @@ integration-test:
 
 golden-test:
   stage: golden-test
-  image: ubuntu:latest
   script:
     - flutter pub get
     - flutter analyze
